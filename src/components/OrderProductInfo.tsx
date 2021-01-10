@@ -1,6 +1,5 @@
 import React from "react";
 import { OrderProduct } from "../Models";
-import "./OrderProductInfo.css";
 
 interface Props {
   products: OrderProduct[];

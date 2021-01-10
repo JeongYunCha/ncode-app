@@ -30,8 +30,8 @@ function parseOrder(json: any) {
 
 function* fetchOrder(action: Action) {
   try {
-    yield put(getOrderStart());
     if (getOrder.match(action)) {
+      yield put(getOrderStart());
       const orderId: number = action.payload;
       const json: any = yield call(API.getOrder, orderId);
       const order: Order = yield call(parseOrder, json);

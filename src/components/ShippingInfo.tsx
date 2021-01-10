@@ -1,7 +1,6 @@
 import React from "react";
 import { Shipping } from "../Models";
 import OrderProductInfo from "./OrderProductInfo";
-import "./ShppingInfo.css";
 
 interface Props {
   shippings: Shipping[];

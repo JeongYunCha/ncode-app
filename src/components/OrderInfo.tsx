@@ -1,6 +1,5 @@
 import React from "react";
 import { Order } from "../Models";
-import "./OrderInfo.css";
 
 interface Props {
   order: Order;

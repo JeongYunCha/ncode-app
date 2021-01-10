@@ -1,13 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .App {
   max-width: 1000px;
   margin: 30px auto;
 }
 
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.shipping-container {
+  padding: 5px;
 }
-p {
-  margin: 0;
+
+.shipping-title,
+.product-title {
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.shipping {
+  border: 1px solid gray;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.product {
+  padding: 5px;
+  margin: 5px;
+  border-bottom: 1px solid gray;
+}
+
+.product:first-child {
+  border-top: 1px solid gray;
 }
