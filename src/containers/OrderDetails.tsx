@@ -14,7 +14,7 @@ interface ParamTypes {
 
 const OrderDetails = () => {
   const { orderId } = useParams<ParamTypes>();
-  console.log(typeof orderId);
+
   const { order, error, loading } = useSelector((state: RootState) => {
     return {
       order: state.order.order,
