@@ -6,6 +6,15 @@
       "amount": 363000,
       "shippings": [
         {
+          "id": 7,
+          "trackingNumber": "T08912739409",
+          "shippingFee": 0,
+          "address": "서울시 강남구 선릉로 111길 6",
+          "post": "06103",
+          "message": "안전한 배송 부탁드립니다.",
+          "products": []
+        },
+        {
           "id": 8,
           "trackingNumber": "T08912739410",
           "shippingFee": 3000,

@@ -3,12 +3,18 @@ import { Dispatch } from "redux";
 import { Action } from "@reduxjs/toolkit";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { useParams } from "react-router";
-import { Order, OrderProduct, Shipping } from "../Models";
 import { RootState } from "../ducks/rootReducer";
 import { orderActions } from "../ducks/order";
+import OrderInfo from "../components/OrderInfo";
+import ShippingInfo from "../components/ShippingInfo";
 
-export const OrderDetails = () => {
-  const { orderId } = useParams<any>();
+interface ParamTypes {
+  orderId: string;
+}
+
+const OrderDetails = () => {
+  const { orderId } = useParams<ParamTypes>();
+  console.log(typeof orderId);
   const { order, error, loading } = useSelector((state: RootState) => {
     return {
       order: state.order.order,
@@ -25,60 +31,16 @@ export const OrderDetails = () => {
   }, []);
 
   return (
-    <>
-      <div>{order && renderOrder(order)}</div>
-      <div>{error && error}</div>
-      <div>{loading && "Loading..."}</div>
-    </>
+    <div>
+      {loading
+        ? "Loading..."
+        : order && (
+            <OrderInfo order={order}>
+              <ShippingInfo shippings={order.shippings} />
+            </OrderInfo>
+          )}
+      {error && <p>error</p>}
+    </div>
   );
 };
-
-const renderOrder = (order: Order) => {
-  return (
-    <>
-      <p>주문번호: {order.id}</p>
-      <p>주문일: {order.orderAt.toLocaleString()}</p>
-      <p>총 결제금액: {order.amount}원</p>
-      {renderShippings(order)}
-    </>
-  );
-};
-
-const renderShippings = ({ shippings }: Order) => {
-  return (
-    <ul>
-      {shippings.map((shipping: Shipping, index: number) => (
-        <li key={index}>
-          <p>[배송정보 {index + 1}]</p>
-          <p>송장번호: {shipping.trackingNumber}</p>
-          <p>배송료: {shipping.shippingFee}원</p>
-          <p>
-            주소: [{shipping.post}] {shipping.address}
-          </p>
-          <p>메시지: {shipping.message}</p>
-          {renderProducts(shipping)}
-        </li>
-      ))}
-    </ul>
-  );
-};
-
-const renderProducts = ({ products }: Shipping) => {
-  return (
-    <>
-      <p>[상품목록]</p>
-      <ul>
-        {products.map((product: OrderProduct, index: number) => (
-          <li key={index}>
-            <p>상품명: {product.name}</p>
-            <p>가격: {product.price}원</p>
-            <p>
-              주문정보: {product.stock.color}/{product.stock.size}
-              <span> {product.stock.quantity}개</span>
-            </p>
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-};
+export default OrderDetails;

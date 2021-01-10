@@ -1,0 +1,13 @@
+.shipping-container {
+  padding: 5px;
+}
+.shipping {
+  border: 1px solid gray;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.product-title {
+  font-weight: bold;
+  margin: 5px 0;
+}
