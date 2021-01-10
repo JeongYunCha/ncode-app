@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
+import { Dispatch } from "redux";
+import { Action } from "@reduxjs/toolkit";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { useParams } from "react-router";
-import { Order, Shipping } from "../../Models";
+import { Order, OrderProduct, Shipping } from "../../Models";
 import { RootState } from "../../store/rootReducer";
-import { getData } from "./orderSlice";
+import { orderActions } from "../../store/order";
 
-export const OrderDetailPage = () => {
+export const OrderDetails = () => {
   const { orderId } = useParams<any>();
   const { order, error, loading } = useSelector((state: RootState) => {
     return {
@@ -14,10 +16,11 @@ export const OrderDetailPage = () => {
       loading: state.order.loading,
     };
   }, shallowEqual);
-  const dispatch = useDispatch();
+
+  const dispatch: Dispatch<Action> = useDispatch();
 
   useEffect((): void => {
-    dispatch(getData(Number(orderId)));
+    dispatch(orderActions.getOrder(Number(orderId)));
     // eslint-disable-next-line
   }, []);
 
@@ -43,10 +46,10 @@ const renderOrder = (order: Order) => {
 
 const renderShippings = ({ shippings }: Order) => {
   return (
-    <>
-      {shippings.map((shipping, index) => (
-        <div key={index}>
-          <p>[배송정보]</p>
+    <ul>
+      {shippings.map((shipping: Shipping, index: number) => (
+        <li key={index}>
+          <p>[배송정보 {index + 1}]</p>
           <p>송장번호: {shipping.trackingNumber}</p>
           <p>배송료: {shipping.shippingFee}원</p>
           <p>
@@ -54,9 +57,9 @@ const renderShippings = ({ shippings }: Order) => {
           </p>
           <p>메시지: {shipping.message}</p>
           {renderProducts(shipping)}
-        </div>
+        </li>
       ))}
-    </>
+    </ul>
   );
 };
 
@@ -64,16 +67,18 @@ const renderProducts = ({ products }: Shipping) => {
   return (
     <>
       <p>[상품목록]</p>
-      {products.map((product, index) => (
-        <div key={index}>
-          <p>상품명: {product.name}</p>
-          <p>가격: {product.price}원</p>
-          <p>
-            주문정보: {product.stock.color}/{product.stock.size}
-            <span> {product.stock.quantity}개</span>
-          </p>
-        </div>
-      ))}
+      <ul>
+        {products.map((product: OrderProduct, index: number) => (
+          <li key={index}>
+            <p>상품명: {product.name}</p>
+            <p>가격: {product.price}원</p>
+            <p>
+              주문정보: {product.stock.color}/{product.stock.size}
+              <span> {product.stock.quantity}개</span>
+            </p>
+          </li>
+        ))}
+      </ul>
     </>
   );
 };

@@ -1,14 +1,18 @@
 export interface Order {
   id: number;
-  orderAt: Date;
+  orderAt: Date | string;
   amount: number;
   shippings: Shipping[];
 }
-export interface OrderResponse {
+
+export interface Shipping {
   id: number;
-  orderAt: string;
-  amount: number;
-  shippings: Shipping[];
+  trackingNumber: string;
+  shippingFee: number;
+  address: string;
+  post: string;
+  message: string;
+  products: OrderProduct[];
 }
 
 export interface OrderProduct {
@@ -23,14 +27,4 @@ export interface Stock {
   color: string;
   size: string;
   quantity: number;
-}
-
-export interface Shipping {
-  id: number;
-  trackingNumber: string;
-  shippingFee: number;
-  address: string;
-  post: string;
-  message: string;
-  products: OrderProduct[];
 }

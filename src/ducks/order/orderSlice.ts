@@ -13,13 +13,12 @@ const orderInitialState: OrderState = {
   error: null,
 };
 
-const order = createSlice({
+export const order = createSlice({
   name: "order",
   initialState: orderInitialState,
   reducers: {
-    getOrder(state: OrderState): void {
+    getOrderStart(state: OrderState): void {
       state.loading = true;
-      state.error = null;
     },
     getOrderSuccess(state: OrderState, action: PayloadAction<Order>): void {
       state.order = action.payload;
@@ -32,6 +31,8 @@ const order = createSlice({
     },
   },
 });
-export const getData = createAction<number>("getData");
-export const { getOrder, getOrderSuccess, getOrderFailure } = order.actions;
-export default order.reducer;
+
+export const orderActions = {
+  getOrder: createAction<number>("getOrder"),
+  ...order.actions,
+};
