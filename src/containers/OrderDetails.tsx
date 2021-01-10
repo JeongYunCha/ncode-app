@@ -3,9 +3,9 @@ import { Dispatch } from "redux";
 import { Action } from "@reduxjs/toolkit";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { useParams } from "react-router";
-import { Order, OrderProduct, Shipping } from "../../Models";
-import { RootState } from "../../store/rootReducer";
-import { orderActions } from "../../store/order";
+import { Order, OrderProduct, Shipping } from "../Models";
+import { RootState } from "../ducks/rootReducer";
+import { orderActions } from "../ducks/order";
 
 export const OrderDetails = () => {
   const { orderId } = useParams<any>();
@@ -37,7 +37,7 @@ const renderOrder = (order: Order) => {
   return (
     <>
       <p>주문번호: {order.id}</p>
-      <p>주문일: {order.orderAt}</p>
+      <p>주문일: {order.orderAt.toLocaleString()}</p>
       <p>총 결제금액: {order.amount}원</p>
       {renderShippings(order)}
     </>

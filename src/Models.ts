@@ -1,6 +1,6 @@
 export interface Order {
   id: number;
-  orderAt: Date | string;
+  orderAt: Date;
   amount: number;
   shippings: Shipping[];
 }

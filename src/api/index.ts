@@ -1,7 +1,6 @@
 import axios from "axios";
-import { Order } from "../Models";
 
-export async function getOrder(orderId: number): Promise<Order> {
+export async function getOrder(orderId: number): Promise<any> {
   const url = `http://localhost:4000/orders/${orderId}`;
 
   try {
